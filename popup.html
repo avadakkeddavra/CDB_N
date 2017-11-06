@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="common.js"></script>
+    
+</head>
+<body>
+    <div class="notify error">
+        <button id="close_notify"><i class="fa fa-close"></i></button>
+        <div class="notify_body">
+            <h4 class="title">Error</h4>
+            <div class="content"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod molestias maiores autem minus, cumque? Optio sed perferendis est amet, veniam similique, tenetur recusandae facere alias eum unde natus, et esse.</div>
+        </div>
+    </div>
+    <div class="global_container popup_window">
+   <div class="extension_title"><img src="img/logo.webp" alt=""></div>
+    <h4 class="extension_title">CSDeals Bot</h4>
+       <div class="check_subscription">
+           <div class="container">
+               <input type="text" name="token" placeholder="ВВедите ваш токен">
+               <button type="button" class="btn-template" id="check_sub">Загрузить</button>
+           </div>
+       </div>
+   <div class="hidden">
+         <div class="statistics">
+           <div class="statistics_container">
+               <button type="button" class="start btn-template" id="start">Start</button>
+               <div class="grid">
+                   <div class="pull_left">
+                       <div class="info_block">
+                           <h4 class="title">На балансе</h4>
+                           <div class="stat"><span class="value" id="balance"></span>$</div>
+                       </div>
+                       <div class="info_block">
+                           <h4 class="title">Время работы</h4>
+                           <div class="stat" id='time'><number>0</number><span>0</span>:<number>0</number><span>0</span></div>
+                       </div>
+                   </div>
+                   <div class="pull_right">
+                        <div class="info_block">
+                           <h4 class="title">Выведено</h4>
+                           <div class="stat"><span class="value" id="output"></span>$</div>
+                       </div>
+                        <div class="info_block">
+                           <h4 class="title">Скорость вывода</h4>
+                           <div class="stat"><span class="value" id="output_speed"></span>$ в минуту</div>
+                       </div>
+                   </div>
+                   <div class="clearfix"></div>
+               </div>
+               <button type="button" id="backup" class="backup_btn">сбросить</button>
+           </div>   
+        </div>
+        <div class="form_container">
+                      
+                    <form id="percentage_form">
+                         <h3>Настройки</h3>
+                         <div class="form_block">
+                             <label for="service">Настроки сервиса</label>
+                             <select name="service" id="service">
+                                 <option value="opskins.com">Opskins</option>
+                                 <option value="loot.farm">LootFarm</option>
+                                 <option value="cs.money">CsMoney</option>
+                             </select>
+                         </div>
+                          <div class="grid sales">
+                               <div class="pull_left">
+                                   <label for="quantity_per_week">От N продаж в неделю Opskins *</label>
+                                   <input type="number" class="full_width success" name="quantity_per_week" id="quantity_per_week" value="10">
+                                   
+                               </div>
+                               <div class="pull_right">
+                                  <label for="quantity_sales_per_week">От N предметов на продажу в неделю Opskins *</label>
+                                   <input type="number" class="full_width success" name="quantity_sales_per_week" id="quantity_sales_per_week" value="0">
+                               </div>
+                               <div class="clearfix"></div>
+                           </div>
+                           
+                            
+                           <div class="grid">
+                              <p class="label">Диапазон % для вывода *</p>
+                               <div class="pull_left">
+                                   <input type="number" class="success" name="min_percent" id="min_precent" value="-25">
+                               </div>
+                               <div class="pull_right">
+                                   <input type="number" class="success"  name="max_percent" id="max_precent" value="5">
+                               </div>
+                               <div class="clearfix"></div>
+                           </div>
+                           
+                           <div class="grid">
+                              <p class="label">Диапазон цен для вывода *</p>
+                               <div class="pull_left">
+                                   <input type="number" class="success" name="min_price" id="min_price" value="0">
+                               </div>
+                               <div class="pull_right">
+                                   <input type="number" class="success" name="max_price" id="max_price" value="9999">
+                               </div>
+                               <div class="clearfix"></div>
+                           </div>
+                           
+        
+                           
+                            <div class="form_block">
+                                <label for="rate">Rate (милисекунды) *</label>
+                                <input type="number" name="rate" class="full_width success" id="rate" value="10000">
+                            </div>
+                            
+                            <div class="checkbox_view service_check">
+                               <label for="compare"  id="toggle_exists">
+                                  <span class="icon"> <i class="fa fa-toggle-off"></i></span>
+                                   <p class="desc">Сравинить мин. цену и среднюю на Opskins</p>
+                               </label>
+                               <input type="checkbox" name="compare" id="compare">
+                            </div>
+                            
+                            <div class="checkbox_view float_check">
+                               <label for="float_check"  id="toggle_float">
+                                  <span class="icon"> <i class="fa fa-toggle-off"></i></span>
+                                   <p class="desc">Включить проверку на float</p>
+                               </label>
+                               <input type="checkbox" name="float_check" id="float_check">
+                            </div>
+                            
+                            <div class="grid float_choose">
+                              <p class="label">Диапазон float для вывода *</p>
+                               <div class="pull_left">
+                                   <input type="number" class="success" name="min_float" id="min_float" value="0.5641123354">
+                               </div>
+                               <div class="pull_right">
+                                   <input type="number" class="success" name="max_float" id="max_float" value="0.99884648645">
+                               </div>
+                               <div class="clearfix"></div>
+                           </div>
+                            
+                            
+                            <div class="checkbox_view  white_check">
+                               <label for="white_check"  id="toggle_white">
+                                  <span class="icon"> <i class="fa fa-toggle-off"></i></span>
+                                   <p class="desc">Включить вывод по белому списку</p>
+                               </label>
+                               <input type="checkbox" name="white_check" id="white_check">
+                            </div>
+                            
+                            <div class="form_block white_list">
+                                <label for="black_list">Белый список (через ";")</label>
+                                <input type="text" name="white_list" class="full_width" id="black_list">
+                            </div>
+                            
+                            <div class="checkbox_view black_check">
+                               <label for="black_check"  id="toggle_black">
+                                  <span class="icon"> <i class="fa fa-toggle-off"></i></span>
+                                  <p class="desc">Черный список</p>
+                               </label>
+                               <input type="checkbox" name="black_check" id="black_check">
+                            </div>
+                            
+                            <div class="form_block black_list">
+                                <label for="black_list">Черный список (через ";")</label>
+                                <input type="text" name="black_list" class="full_width" id="black_list">
+                            </div>
+                            
+                           
+                       </form>
+           </div>
+    </div>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "CSDEALSBOT",
+  "version": "1.0.0",
+  "description" : "Description",
+  "permissions": [
+    "tabs", // Доступ к объекту Tabs
+    "activeTab", // Доступ к объекту ActiveTabs
+    "storage",
+    "cookies",
+    "http://csgoback.net/api/*",
+    "https://ru.cs.deals/",
+    "http://shark.tools/api/*",
+    "http://localhost:3000/*"
+  ],
+    "icons": { "16": "img/logo.webp",
+             "48": "img/logo.webp",
+             "128": "img/logo.webp" 
+           },
+  "background": {
+    "scripts": ["jquery-3.2.1.min.js","background.js"]
+  },
+    
+  "optional_permissions": ["https://ru.tradeskinsfast.com/*","http://bot.poisk.zp.ua/*"],
+  "browser_action": {
+    "default_title": "DEALSBOT", // Заголовок, который отображается при наведении
+    "default_popup": "popup.html"
+  }
+
+    
+}
