@@ -2,7 +2,7 @@
 function send_cs_deals_request()
 {
     $.ajax({
-                url:"http://localhost:3000/getArray",
+                url:"http://localhost:8000/getArray",
                 type:'POST',
                 dataType:'json',
                 success: function(response){
@@ -418,7 +418,7 @@ function trade(trade_arr,options)
                     {
                         console.log(i,trade_arr[i]);              
                         $.ajax({
-                                url: 'http://localhost:3000/trade',
+                                url: 'http://localhost:8000/trade',
                                 data:{sessionID: options.token, bot: i, ids: trade_arr[i]},
                                 type: "POST",
                                 dataType:'json',
@@ -479,7 +479,7 @@ function bot_stop(options)
 function getCash(){
     
        $.ajax({
-        url: 'http://localhost:3000/balance',
+        url: 'http://localhost:8000/balance',
         data:{sessionID:localStorage.getItem('token')}, 
         type:"POST",
         success: function(response)
@@ -497,7 +497,7 @@ function getCash(){
 function getStat()
 {
     $.ajax({
-        url:'http://localhost:3000/balance',
+        url:'http://localhost:8000/balance',
         type:"POST",
         data:{sessionID:localStorage.getItem('token')},
         success: function(response)

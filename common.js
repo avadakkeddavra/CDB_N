@@ -3,12 +3,25 @@ $(document).ready(function(){
      $('#balance').text(response.balance);
     });   
 })
-function showAuth(showMessage, title = null){
+function showAuth(showMessage, title){
     $('.hidden').hide();
     $('.check_subscription').show();
-    if(showMessage == true){
-        notify('info',title);
-    }
+    $('.preloader').fadeOut();
+        $.ajax({
+                url:'http://localhost:8000/getSteamId',
+                data:{sessionID:localStorage.getItem('steamID')},
+                type: 'POST',
+                success:function(response){
+                        if(response.indexOf("va") != -1){
+                            notify('error','None authorized action','Авторизируйтесь на csdeals')
+                        }else{
+                                localStorage.setItem('steamID',response);
+                                if(showMessage == true){
+                                    notify('info',title,' ');
+                                }
+                        }
+             }
+    })
 }
 $(document).ready(function(){
     if(localStorage.getItem('access') == 'true'){
@@ -17,24 +30,39 @@ $(document).ready(function(){
                 cookie.name = 'sessionID';
                 chrome.cookies.get(cookie, function( Cookie ){
                        if(localStorage.getItem('token') == Cookie.value){
-                            afterLoad();
+                            $.ajax({
+                                    url:'http://localhost:8000/getSteamId',
+                                    data:{sessionID:Cookie.value},
+                                    type: 'POST',
+                                    success:function(response){
+                                         if(response != localStorage.getItem('steamID')){
+                                             showAuth(true,'Вы сменили аккаунт');
+                                           
+                                        }else{
+                                             afterLoad();
+                                        }
+                                    }
+                            })
                        }else{
                            showAuth(true,'Вы сменили аккаунт');
                        }
                 });
     }else{
+        $('.preloader').fadeOut();
         var cookie = new Object;
                 cookie.url = 'https://ru.cs.deals/';
                 cookie.name = 'sessionID';
                 chrome.cookies.get(cookie, function( Cookie ){
                     localStorage.setItem('token',Cookie.value)
                         $.ajax({
-                            url:'http://localhost:3000/getSteamId',
-                            data:{sessionID:Cookie.value},
+                            url:'http://localhost:8000/getSteamId',
+                            data:{sessionID:localStorage.getItem('token')},
                             type:'POST',
                             success:function(response){
+                                alert(response);
                                 if(response.indexOf('ull;') == -1){
-                                     localStorage.setItem('steamID',response)
+                                     localStorage.setItem('steamID',response);
+                                        
                                 }else{
                                     notify('error','None authorized action','Авторизируйтесь на csdeals')
                                 }
@@ -51,6 +79,7 @@ $(document).ready(function(){
                         data:{id:localStorage.getItem('steamID'),service:'csdeals'},
                         type:'POST',
                         success: function(response){
+                            alert(response)
                             if(token == response){
                                 localStorage.setItem('access',true);
                                 afterLoad();
@@ -191,8 +220,9 @@ $(document).ready(function(){
 function afterLoad(){
     $('.check_subscription').hide();
     $('.hidden').show();
+    $('.preloader').fadeOut();
         $.ajax({
-                    url:'http://localhost:3000/balance',
+                    url:'http://localhost:8000/balance',
                     type:"POST",
                     data:{sessionID:localStorage.getItem('token')},
                     success: function(response)
@@ -366,7 +396,6 @@ $(document).ready(function(){
                 if(response == 1)
                 {
                     //console.log(options);
-                    localStorage.setItem('token',options.token);
                     localStorage.setItem('options',JSON.stringify(options));
                     onClick(options);
                     

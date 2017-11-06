@@ -57,6 +57,7 @@ http.createServer(function(req, response){
                     }
 
                 }, function (error, res, body) {
+                    console.log(body.slice(body.indexOf('g_steamID')+13,body.indexOf('g_steamID')+30));
                     response.end(body.slice(body.indexOf('g_steamID')+13,body.indexOf('g_steamID')+30));
                 });
 
@@ -136,4 +137,4 @@ http.createServer(function(req, response){
     }
 
 
-}).listen(3000);
+}).listen(8000);
